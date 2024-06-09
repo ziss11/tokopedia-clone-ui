@@ -72,6 +72,49 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(20),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const ImageIcon(
+                        AssetImage(
+                          'assets/icons/ic_location.png',
+                        ),
+                        color: AppColors.green,
+                      ),
+                      const SizedBox(width: 4),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Dikirim ke ',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          children: [
+                            TextSpan(
+                              text: 'Abdul Azis (Surabaya)',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      const ImageIcon(
+                        AssetImage(
+                          'assets/icons/ic_arrow_down.png',
+                        ),
+                        color: AppColors.black,
+                        size: 15,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
             body: SafeArea(
               child: Center(
