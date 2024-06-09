@@ -15,9 +15,9 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tokopedia App Clone UI',
       theme: ThemeData(
-        fontFamily: 'OpenSauceOne',
+        fontFamily: 'OpenSouceOne',
         colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColors.primaryColor,
+          seedColor: AppColors.primary,
         ),
         useMaterial3: true,
       ),

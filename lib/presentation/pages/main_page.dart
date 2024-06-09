@@ -44,7 +44,7 @@ class _MainPageState extends State<MainPage> {
     return BottomNavigationBarItem(
       icon: ImageIcon(
         AssetImage(icon),
-        color: _selectedIndex == index ? AppColors.primaryColor : Colors.grey,
+        color: _selectedIndex == index ? AppColors.primary : AppColors.grey,
         size: _selectedIndex == index ? 24 : 20,
       ),
       label: label,
@@ -58,7 +58,7 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _selectedIndex,
         selectedFontSize: 10,
         unselectedFontSize: 10,
-        selectedItemColor: AppColors.primaryColor,
+        selectedItemColor: AppColors.primary,
         type: BottomNavigationBarType.fixed,
         onTap: (value) {
           setState(() {
