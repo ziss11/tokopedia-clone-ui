@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int carouselIndex = 0;
-  int carouselDuration = 10;
+  int carouselDuration = 5;
 
   late AnimationController indicatorController;
 
@@ -22,10 +22,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     indicatorController = AnimationController(
       vsync: this,
       duration: Duration(seconds: carouselDuration),
-    )..addListener(() {
-        setState(() {});
-      });
-    indicatorController.repeat();
+    )
+      ..addListener(() => setState(() {}))
+      ..repeat();
     super.initState();
   }
 
@@ -273,24 +272,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 carouselIndex = index;
                               });
                             },
+                            onScrolled: (value) {
+                              indicatorController
+                                ..forward(from: 0)
+                                ..repeat();
+                            },
                           ),
                           items: [
-                            Image.asset(
-                              'assets/images/banner.png',
-                            ),
-                            Image.asset(
-                              'assets/images/banner.png',
-                            ),
-                            Image.asset(
-                              'assets/images/banner.png',
-                            ),
+                            Image.asset('assets/images/banner.png'),
+                            Image.asset('assets/images/banner.png'),
+                            Image.asset('assets/images/banner.png'),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(3, (index) {
                             return AnimatedContainer(
-                              duration: const Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 200),
                               width: (index == carouselIndex) ? 45 : 6,
                               height: 6,
                               margin: const EdgeInsets.symmetric(
