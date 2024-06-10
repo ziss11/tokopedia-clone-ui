@@ -11,8 +11,29 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int carouselIndex = 0;
+  int carouselDuration = 10;
+
+  late AnimationController indicatorController;
+
+  @override
+  void initState() {
+    indicatorController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: carouselDuration),
+    )..addListener(() {
+        setState(() {});
+      });
+    indicatorController.repeat();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    indicatorController.dispose();
+    super.dispose();
+  }
 
   Widget quickInfoItem({
     required BuildContext context,
@@ -243,6 +264,9 @@ class _HomePageState extends State<HomePage> {
                             viewportFraction: 1.0,
                             enlargeCenterPage: false,
                             enableInfiniteScroll: true,
+                            autoPlayInterval: Duration(
+                              seconds: carouselDuration,
+                            ),
                             autoPlay: true,
                             onPageChanged: (index, reason) {
                               setState(() {
@@ -275,10 +299,15 @@ class _HomePageState extends State<HomePage> {
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                color: (index == carouselIndex)
-                                    ? AppColors.white
-                                    : AppColors.white.withOpacity(.7),
+                                color: AppColors.white.withOpacity(.7),
                               ),
+                              child: (index == carouselIndex)
+                                  ? LinearProgressIndicator(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: AppColors.white,
+                                      value: indicatorController.value,
+                                    )
+                                  : null,
                             );
                           }),
                         ),
