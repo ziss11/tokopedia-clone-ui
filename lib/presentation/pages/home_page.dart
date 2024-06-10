@@ -17,6 +17,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   late AnimationController indicatorController;
 
+  final features = [
+    {'text': 'Promo Ramadhan', 'image': 'assets/images/promo_ramadhan.png'},
+    {'text': 'Tiket & Hiburan', 'image': 'assets/images/tiket_hiburan.png'},
+    {'text': 'Mumpung Murah', 'image': 'assets/images/mumpung_murah.png'},
+    {'text': 'Toserba', 'image': 'assets/images/toserba.png'},
+    {'text': 'Beli Lokal', 'image': 'assets/images/beli_lokal.png'},
+    {'text': 'Fashion', 'image': 'assets/images/fashion.png'},
+    {'text': 'Tokopedia Card', 'image': 'assets/images/tokopedia_card.png'},
+    {'text': 'THR Ekstra', 'image': 'assets/images/thr_ekstra.png'},
+    {'text': 'Keuangan', 'image': 'assets/images/keuangan.png'},
+    {'text': 'Olahraga', 'image': 'assets/images/olahraga.png'},
+    {'text': 'Tokopedia Seru', 'image': 'assets/images/tokopedia_seru.png'},
+    {'text': 'Promo di Surabaya', 'image': 'assets/images/promo_lokal.png'},
+    {'text': 'Live Shopping', 'image': 'assets/images/live_tokopedia.png'},
+    {'text': 'Tokopedia Farma', 'image': 'assets/images/tokopedia_farma.png'},
+    {'text': 'Promo Hari Ini', 'image': 'assets/images/promo_hari_ini.png'},
+    {'text': 'Buku', 'image': 'assets/images/buku.png'},
+  ];
+
   @override
   void initState() {
     indicatorController = AnimationController(
@@ -72,6 +91,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+  Widget featureItem({
+    required BuildContext context,
+    required Widget image,
+    required String text,
+  }) {
+    return SizedBox(
+      width: 50,
+      child: Column(
+        children: [
+          image,
+          const SizedBox(height: 4),
+          Text(
+            text,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.clip,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  fontSize: 9,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.black,
+                  letterSpacing: 0,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return KeyboardDismisser(
@@ -111,11 +157,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  InkWell(
-                    onTap: () {},
-                    child: const ImageIcon(
-                      AssetImage('assets/icons/ic_bell.png'),
-                      color: AppColors.black,
+                  Badge.count(
+                    count: 1,
+                    backgroundColor: AppColors.red,
+                    child: InkWell(
+                      onTap: () {},
+                      child: const ImageIcon(
+                        AssetImage('assets/icons/ic_bell.png'),
+                        color: AppColors.black,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -310,6 +360,35 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           }),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 220,
+                      child: GridView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 20,
+                        ),
+                        itemCount: features.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 1.9,
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 12,
+                        ),
+                        itemBuilder: (context, index) {
+                          return featureItem(
+                            context: context,
+                            image: Image.asset(
+                              features[index]['image']!,
+                              width: 45,
+                              height: 45,
+                            ),
+                            text: features[index]['text']!,
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
