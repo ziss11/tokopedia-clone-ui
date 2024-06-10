@@ -15,11 +15,14 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tokopedia App Clone UI',
       theme: ThemeData(
+        useMaterial3: true,
         fontFamily: 'OpenSouceOne',
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppColors.primary,
         ),
-        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          surfaceTintColor: Colors.transparent,
+        ),
       ),
       home: const MainPage(),
     );

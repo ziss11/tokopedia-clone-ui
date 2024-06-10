@@ -98,6 +98,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }) {
     return SizedBox(
       width: 50,
+      height: 70,
       child: Column(
         children: [
           image,
@@ -187,10 +188,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ],
               ),
               bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(10),
+                preferredSize: const Size.fromHeight(20),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    bottom: 8,
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -328,11 +331,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 ..repeat();
                             },
                           ),
-                          items: [
-                            Image.asset('assets/images/banner.png'),
-                            Image.asset('assets/images/banner.png'),
-                            Image.asset('assets/images/banner.png'),
-                          ],
+                          items: [1, 2, 3].map((_) {
+                            return Image.asset('assets/images/banner.png');
+                          }).toList(),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -361,20 +362,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 20),
                     SizedBox(
-                      height: 220,
+                      height: 160,
                       child: GridView.builder(
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
-                          vertical: 20,
                         ),
                         itemCount: features.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 1.9,
+                          childAspectRatio: 1.5,
                           crossAxisCount: 2,
+                          crossAxisSpacing: 8,
                           mainAxisSpacing: 12,
                         ),
                         itemBuilder: (context, index) {
@@ -389,6 +391,36 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           );
                         },
                       ),
+                    ),
+                    const SizedBox(height: 20),
+                    SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/images/mumpung_murah_produk.png',
+                            width: 120,
+                            height: 120,
+                          ),
+                          Image.asset(
+                            'assets/images/ramadhan_produk.png',
+                            width: 120,
+                            height: 120,
+                          ),
+                          Image.asset(
+                            'assets/images/murah_mantap_produk.png',
+                            width: 120,
+                            height: 120,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Image.asset(
+                      'assets/images/discount_banner.png',
+                      width: double.infinity,
+                      height: 120,
                     ),
                   ],
                 ),
