@@ -1,10 +1,18 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:tokopedia_clone_ui/common/app_colors.dart';
 import 'package:tokopedia_clone_ui/presentation/widgets/app_textfield.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int carouselIndex = 0;
 
   Widget quickInfoItem({
     required BuildContext context,
@@ -224,6 +232,57 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                       ),
+                    ),
+                    const SizedBox(height: 12),
+                    Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        CarouselSlider(
+                          options: CarouselOptions(
+                            height: 119,
+                            viewportFraction: 1.0,
+                            enlargeCenterPage: false,
+                            enableInfiniteScroll: true,
+                            autoPlay: true,
+                            onPageChanged: (index, reason) {
+                              setState(() {
+                                carouselIndex = index;
+                              });
+                            },
+                          ),
+                          items: [
+                            Image.asset(
+                              'assets/images/banner.png',
+                            ),
+                            Image.asset(
+                              'assets/images/banner.png',
+                            ),
+                            Image.asset(
+                              'assets/images/banner.png',
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(3, (index) {
+                            return AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              width: (index == carouselIndex) ? 45 : 6,
+                              height: 6,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 2,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: (index == carouselIndex)
+                                    ? AppColors.white
+                                    : AppColors.white.withOpacity(.7),
+                              ),
+                            );
+                          }),
+                        ),
+                      ],
                     ),
                   ],
                 ),
