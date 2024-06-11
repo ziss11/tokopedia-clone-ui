@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:tokopedia_clone_ui/common/app_colors.dart';
 import 'package:tokopedia_clone_ui/presentation/widgets/app_textfield.dart';
+import 'package:tokopedia_clone_ui/presentation/widgets/product_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,10 +13,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  late AnimationController indicatorController;
+
   int carouselIndex = 0;
   int carouselDuration = 5;
-
-  late AnimationController indicatorController;
 
   final features = [
     {'text': 'Promo Ramadhan', 'image': 'assets/images/promo_ramadhan.png'},
@@ -421,6 +422,128 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       'assets/images/discount_banner.png',
                       width: double.infinity,
                       height: 120,
+                    ),
+                    const SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Khusus Buat Kamu ~',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                'Terbatas! Buruan Serbu',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.grey,
+                                      letterSpacing: 0,
+                                    ),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            style: IconButton.styleFrom(
+                              backgroundColor: AppColors.white,
+                              shape: CircleBorder(
+                                side: BorderSide(
+                                  color: AppColors.grey.withOpacity(.2),
+                                  width: 1,
+                                ),
+                              ),
+                            ),
+                            highlightColor: AppColors.white,
+                            color: AppColors.white,
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.chevron_right,
+                              color: AppColors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0xFF9F2F01),
+                            Color(0xFF922C01),
+                            Color(0xFF832802),
+                            Color(0xFF762502),
+                            Color(0xFF692202),
+                          ],
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          const SizedBox(width: 8),
+                          Image.asset(
+                            'assets/images/deals_discount.png',
+                            width: 137,
+                            height: 256,
+                          ),
+                          const SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            physics: BouncingScrollPhysics(),
+                            padding: EdgeInsets.only(
+                              left: 150,
+                              top: 12,
+                              bottom: 12,
+                            ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 8),
+                                  child: ProductItem(
+                                    image: 'assets/images/sandal_1.png',
+                                    extraSeru: true,
+                                    bebasOngkir: true,
+                                    beliLokal: true,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 8),
+                                  child: ProductItem(
+                                    image: 'assets/images/sandal_2.png',
+                                    extraSeru: true,
+                                    bebasOngkir: true,
+                                    beliLokal: true,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 8),
+                                  child: ProductItem(
+                                    image: 'assets/images/sandal_1.png',
+                                    extraSeru: true,
+                                    bebasOngkir: true,
+                                    beliLokal: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
