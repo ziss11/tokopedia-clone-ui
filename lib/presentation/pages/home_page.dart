@@ -37,6 +37,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     {'text': 'Buku', 'image': 'assets/images/buku.png'},
   ];
 
+  final promoAds = [
+    'assets/images/promo_product_1.png',
+    'assets/images/promo_product_2.png',
+    'assets/images/promo_product_3.png',
+  ];
+
   @override
   void initState() {
     indicatorController = AnimationController(
@@ -242,6 +248,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   vertical: 16,
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -543,6 +550,64 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Pilihan Promo Hari Ini',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                          IconButton(
+                            style: IconButton.styleFrom(
+                              backgroundColor: AppColors.white,
+                              shape: CircleBorder(
+                                side: BorderSide(
+                                  color: AppColors.grey.withOpacity(.2),
+                                  width: 1,
+                                ),
+                              ),
+                            ),
+                            highlightColor: AppColors.white,
+                            color: AppColors.white,
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.chevron_right,
+                              color: AppColors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      height: 227,
+                      child: ListView.separated(
+                        itemCount: promoAds.length,
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(width: 8);
+                        },
+                        itemBuilder: (context, index) {
+                          return Image.asset(
+                            promoAds[index],
+                            width: 130,
+                          );
+                        },
                       ),
                     ),
                   ],
