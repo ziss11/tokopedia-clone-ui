@@ -1,19 +1,30 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:tokopedia_clone_ui/common/app_colors.dart';
+import 'package:tokopedia_clone_ui/common/extensions.dart';
 
 class ProductItem extends StatelessWidget {
   final String image;
+  final String productName;
+  final int price;
+  final String location;
+  final int? originalPrice;
   final bool extraSeru;
   final bool bebasOngkir;
   final bool beliLokal;
+  final bool withCashback;
 
   const ProductItem({
     super.key,
+    required this.productName,
     required this.image,
+    required this.price,
+    required this.location,
+    this.originalPrice,
     this.extraSeru = false,
     this.bebasOngkir = false,
     this.beliLokal = false,
+    this.withCashback = true,
   });
 
   Widget promoItem({
@@ -53,6 +64,7 @@ class ProductItem extends StatelessWidget {
                 left: ((promoWidth - 2) * index).toDouble(),
                 child: Image.asset(
                   item['asset']!,
+                  fit: BoxFit.cover,
                   height: 15,
                 ),
               );
@@ -83,11 +95,7 @@ class ProductItem extends StatelessWidget {
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(4),
                 ),
-                child: Image.asset(
-                  image,
-                  width: 121,
-                  height: 121,
-                ),
+                child: Image.asset(image),
               ),
               promoItem(
                 extraSeru: extraSeru,
@@ -96,14 +104,19 @@ class ProductItem extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 8,
             ),
             child: Text(
-              'Sandal Pria LOGG',
+              productName,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(letterSpacing: 0),
             ),
           ),
           const SizedBox(height: 7),
@@ -115,64 +128,68 @@ class ProductItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Rp69.900',
+                  price.toLocalCurrency(),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w800,
                       ),
                 ),
-                const SizedBox(width: 2),
-                Expanded(
-                  child: Text(
-                    'Rp199.900 ',
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey,
-                          decoration: TextDecoration.lineThrough,
-                          decorationColor: Colors.grey,
-                        ),
+                if (originalPrice != null) ...[
+                  const SizedBox(width: 2),
+                  Expanded(
+                    child: Text(
+                      price.toLocalCurrency(),
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey,
+                            decoration: TextDecoration.lineThrough,
+                            decorationColor: Colors.grey,
+                          ),
+                    ),
                   ),
-                ),
+                ],
               ],
             ),
           ),
-          const SizedBox(height: 5),
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 8),
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      'assets/images/ticket_bg.png',
+          if (withCashback) ...[
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/images/ticket_bg.png',
+                      ),
+                      fit: BoxFit.fill,
                     ),
-                    fit: BoxFit.fill,
+                  ),
+                  child: Text(
+                    'Cashback 16,08rb',
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: AppColors.red,
+                          letterSpacing: 0,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 8,
+                        ),
                   ),
                 ),
-                child: Text(
-                  'Cashback 16,08rb',
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: AppColors.red,
-                        letterSpacing: 0,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 8,
-                      ),
-                ),
-              ),
-              const SizedBox(width: 2),
-              Expanded(
-                child: Text(
-                  '+2 lain',
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        fontSize: 8,
-                        color: AppColors.orange,
-                      ),
-                ),
-              )
-            ],
-          ),
+                const SizedBox(width: 2),
+                Expanded(
+                  child: Text(
+                    '+2 lain',
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          fontSize: 8,
+                          color: AppColors.orange,
+                        ),
+                  ),
+                )
+              ],
+            ),
+          ],
           const SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -231,7 +248,7 @@ class ProductItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 2),
                 Text(
-                  'Kota Bandung',
+                  location,
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: AppColors.grey.withOpacity(.7),
                         letterSpacing: 0,
